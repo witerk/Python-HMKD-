@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(6, 112, 107);
+        }
+        h2 {
+            margin-top: 40px;
+            color: rgb(141, 139, 139);
+        }
+        label{
+            font-weight:bold;
+        }
+        input[type="sumbit"]{
+            margin-top: 10px;
+        }
+    </style>
+
+<title>About Me</title>
+</head>
+    
+<body>
+<div class="container">
+    <h1>환영합니다! 저는 ' 나영 '입니다.</h1>
+    <h2>About Me</h2>
+    <p>
+        안녕하세요! 저는 코딩을 사랑하고, 웹 개발에 관심이 많은 개발자입니다. 현재까지 프로그래밍 언어로는 JavaScript, Python, HTML, CSS 등을 다루어봤으며, 주로 프론트엔드 개발과 백엔드 개발에 매력을 느끼고 있습니다.
+    </p>
+
+    <form action="/sentiment" method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="text" class="form-label">문장 입력</label>
+            <input type="text" id="text" name="text" class="form-control">
+        </div>
+        <input type="submit" vlaue="분석하기" class="btn btn-primary">
+    </form>
+</div>
+</body>
+</html>
