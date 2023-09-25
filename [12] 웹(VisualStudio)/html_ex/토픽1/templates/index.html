@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #19b1ac;;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                margin: 10;
+                padding: 10;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card {
+                margin-top: 50px;
+                width: 100vw;
+                max-width: 70vw;
+                height: 80vh;
+                text-align: center;
+                font-family: 'Roboto', sans-serif;
+                padding: 20;
+            }
+
+            .card .card-header h1 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .card .card-body .card-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .card .card-body .card-text {
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card border-dark mb-3" style="min-width: 30rem; max-width: 80rem;">
+                <div class="card-header">
+                    <h1>BERT classification</h1>
+                </div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Topic</h5>
+                    <p class="card-text">주어진 문장의 토픽을 분류합니다.</p>
+                    <textarea class="form-control" aria-describedby="basic-addon3" id="input" name="input"
+                        placeholder="문장을 입력하세요" rows="5"></textarea>
+                    <button id="classify-button" class="btn btn-primary mt-3" onclick="api_call()">토픽 분류</button>
+                    <p class="card-text">
+                    <div class="alert alert-info" role="alert">
+                        <h5 id="prediction" class="alert-heading"></h5>
+                    </div>
+                    </p>
+                    <hr>
+                    <p class="card-text"><small class="text-muted">웹 데모는 BERT 기반으로 분류 작업을 위한 파인튜닝을 완료한 모델을 적용합니다. </p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        function api_call() {
+            var input = $("#input").val();
+            console.log(input)
+            $.ajax({
+                url: "/api",
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({"sentence":input}), // 서버가 JSON 형태의 응답을 보냄
+                success: function (data, textStatus,jQxhr){
+                    // id가 sentence인 HTML 요소의 내용을 서버 응답의 sentence 필드로 설정
+                    $('#sentence').html(data.sentence);
+                    // id가 prediction인 HTML 요소의 내용을 "Topic: " 문자열과 서버 응답의 prediction 필드를 결합한 문자열로 설정
+                    $('#prediction').html("Topic: " + data.prediction);
+                    // id가 input인 HTML 요소의 값을 빈 문자열로 설정
+                    $("#input").val("")
+                },
+                error: function (jQxhr, textStatus, errorThrown) {
+                    $('#api_output').html("There was an error");
+                    console.log(errorThrown);
+                },
+                timeout: 3000
+                
+            });
+        }
+    </script>
+</html>
